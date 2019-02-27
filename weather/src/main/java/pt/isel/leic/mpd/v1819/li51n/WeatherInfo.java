@@ -14,14 +14,21 @@ public class WeatherInfo {
     }
 
     public static WeatherInfo valueOf(String line) {
-        return null;
+        String[] words = line.split(",");
+        LocalDate date = LocalDate.parse(words[0]);
+        int max = Integer.parseInt(words[1]);
+        int min = Integer.parseInt(words[3]);
+        return new WeatherInfo(date, max, min);
     }
 
     @Override
     public String toString() {
         return "WeatherInfo{" +
-            "date=" + date +
-            ", tempMaxC=" + tempMaxC + '\'' +
-            '}';
+                "date=" + date +
+                ", tempMaxC=" + tempMaxC +
+                ", tempMinC=" + tempMinC +
+                '}';
     }
+
+
 }
