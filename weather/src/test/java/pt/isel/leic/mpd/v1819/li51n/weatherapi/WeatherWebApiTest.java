@@ -1,4 +1,4 @@
-package pt.isel.leic.mpd.v1819.li51n;
+package pt.isel.leic.mpd.v1819.li51n.weatherapi;
 
 import org.junit.Assert;
 import org.junit.Test;

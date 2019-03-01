@@ -1,5 +1,8 @@
 package pt.isel.leic.mpd.v1819.li51n;
 
+import pt.isel.leic.mpd.v1819.li51n.weatherapi.WeatherInfo;
+import pt.isel.leic.mpd.v1819.li51n.weatherapi.WeatherWebApi;
+
 import java.io.IOException;
 import java.util.List;
 
