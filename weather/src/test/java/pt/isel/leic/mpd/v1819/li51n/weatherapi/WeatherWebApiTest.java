@@ -2,15 +2,18 @@ package pt.isel.leic.mpd.v1819.li51n.weatherapi;
 
 import org.junit.Assert;
 import org.junit.Test;
+import pt.isel.leic.mpd.v1819.li51n.utils.MockRequest;
 
+
+import java.io.IOException;
 import java.util.List;
 
 public class WeatherWebApiTest {
 
-    private final WeatherWebApi weatherWebApi = new WeatherWebApi();
+    private final WeatherWebApi weatherWebApi = new WeatherWebApi(new MockRequest());
 
     @Test
-    public void shouldGetLocationsForOportoSearch() {
+    public void shouldGetLocationsForOportoSearch() throws IOException {
         // Arrange
         final String locationStr = "Oporto";
 
@@ -25,7 +28,7 @@ public class WeatherWebApiTest {
 
 
     @Test(expected = IllegalArgumentException.class)
-    public void shouldThrowExceptionForEmptyStringOnSearch() {
+    public void shouldThrowExceptionForEmptyStringOnSearch() throws IOException {
         // Arrange
 
         // Act
@@ -35,7 +38,7 @@ public class WeatherWebApiTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void shouldThrowExceptionForNullStringOnSearch() {
+    public void shouldThrowExceptionForNullStringOnSearch() throws IOException {
         // Arrange
 
         // Act

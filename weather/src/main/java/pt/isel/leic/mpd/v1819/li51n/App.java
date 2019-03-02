@@ -1,5 +1,6 @@
 package pt.isel.leic.mpd.v1819.li51n;
 
+import pt.isel.leic.mpd.v1819.li51n.utils.HttpRequest;
 import pt.isel.leic.mpd.v1819.li51n.weatherapi.WeatherInfo;
 import pt.isel.leic.mpd.v1819.li51n.weatherapi.WeatherWebApi;
 
@@ -11,7 +12,7 @@ import static java.time.LocalDate.parse;
 public class App {
 
     public static void main(String[] args) throws IOException {
-        WeatherWebApi webApi = new WeatherWebApi();
+        WeatherWebApi webApi = new WeatherWebApi(new HttpRequest());
         /*
          * Get past weather at Lisbon between 2019-02-01 and 2019-02-10
          */

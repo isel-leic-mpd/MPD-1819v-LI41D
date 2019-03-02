@@ -1,0 +1,58 @@
+#The CSV format is in following way:-
+#The day information is available in following format:-
+#date,maxtempC,maxtempF,mintempC,mintempF,sunrise,sunset,moonrise,moonset,moon_phase,moon_illumination
+#
+#Hourly information follows below the day in the following way:-
+#date,time,tempC,tempF,windspeedMiles,windspeedKmph,winddirdegree,winddir16point,weatherCode,weatherIconUrl,weatherDesc,precipMM,humidity,visibilityKm,pressureMB,cloudcover,HeatIndexC,HeatIndexF,DewPointC,DewPointF,WindChillC,WindChillF,WindGustMiles,WindGustKmph,FeelsLikeC,FeelsLikeF
+#
+Not Available
+2019-02-01,14,58,13,56,07:35 AM,05:56 PM,05:05 AM,03:07 PM,Waning Crescent,21
+2019-02-01,24,14,58,27,44,289,WNW,176,http://cdn.worldweatheronline.net/images/wsymbols01_png_64/wsymbol_0009_light_rain_showers.png,Patchy rain possible,13.8,72,9,1007,55,14,57,9,48,12,53,38,61,12,53
+2019-02-02,14,56,11,51,07:34 AM,05:58 PM,05:56 AM,03:56 PM,Waning Crescent,14
+2019-02-02,24,14,56,17,27,333,NNW,113,http://cdn.worldweatheronline.net/images/wsymbols01_png_64/wsymbol_0001_sunny.png,Sunny,0.0,60,10,1019,3,12,53,4,39,9,48,24,38,9,48
+2019-02-03,14,57,9,47,07:33 AM,05:59 PM,06:42 AM,04:49 PM,Waning Crescent,7
+2019-02-03,24,14,57,11,18,14,NNE,116,http://cdn.worldweatheronline.net/images/wsymbols01_png_64/wsymbol_0002_sunny_intervals.png,Partly cloudy,0.0,54,10,1028,2,11,51,1,35,8,47,16,26,8,47
+2019-02-04,16,61,9,48,07:32 AM,06:00 PM,07:23 AM,05:44 PM,New Moon,0
+2019-02-04,24,16,61,8,13,53,NE,116,http://cdn.worldweatheronline.net/images/wsymbols01_png_64/wsymbol_0002_sunny_intervals.png,Partly cloudy,0.0,52,10,1029,3,12,53,2,36,10,51,14,22,10,51
+2019-02-05,17,63,11,51,07:31 AM,06:01 PM,08:00 AM,06:39 PM,Waxing Crescent,0
+2019-02-05,24,17,63,6,9,99,E,113,http://cdn.worldweatheronline.net/images/wsymbols01_png_64/wsymbol_0001_sunny.png,Sunny,0.0,54,13,1028,8,13,56,4,39,12,54,11,17,12,54
+2019-02-06,17,63,12,54,07:30 AM,06:02 PM,08:33 AM,07:35 PM,Waxing Crescent,7
+2019-02-06,24,17,63,6,9,124,ESE,113,http://cdn.worldweatheronline.net/images/wsymbols01_png_64/wsymbol_0001_sunny.png,Sunny,0.0,63,10,1026,9,14,57,7,45,13,56,10,17,13,56
+2019-02-07,18,64,12,53,07:30 AM,06:03 PM,09:04 AM,08:31 PM,Waxing Crescent,14
+2019-02-07,24,18,64,6,9,91,E,113,http://cdn.worldweatheronline.net/images/wsymbols01_png_64/wsymbol_0001_sunny.png,Sunny,0.0,61,10,1026,4,14,57,7,44,13,56,11,18,13,56
+2019-02-08,16,61,12,53,07:29 AM,06:04 PM,09:34 AM,09:28 PM,Waxing Crescent,21
+2019-02-08,24,16,61,6,10,133,SE,113,http://cdn.worldweatheronline.net/images/wsymbols01_png_64/wsymbol_0001_sunny.png,Sunny,0.0,77,10,1025,7,14,56,10,49,13,55,10,16,13,55
+2019-02-09,16,62,11,52,07:28 AM,06:05 PM,10:02 AM,10:24 PM,First Quarter,28
+2019-02-09,24,16,62,6,9,135,SE,113,http://cdn.worldweatheronline.net/images/wsymbols01_png_64/wsymbol_0001_sunny.png,Sunny,0.0,68,19,1024,0,13,56,7,45,13,55,9,15,13,55
+2019-02-10,16,60,11,51,07:27 AM,06:06 PM,10:30 AM,11:22 PM,First Quarter,34
+2019-02-10,24,16,60,6,9,155,SSE,122,http://cdn.worldweatheronline.net/images/wsymbols01_png_64/wsymbol_0004_black_low_cloud.png,Overcast,0.0,79,14,1027,41,13,55,9,48,12,54,9,15,12,54
+2019-02-11,18,65,13,56,07:25 AM,06:07 PM,11:00 AM,No moonset,First Quarter,41
+2019-02-11,24,18,65,5,8,316,NW,116,http://cdn.worldweatheronline.net/images/wsymbols01_png_64/wsymbol_0002_sunny_intervals.png,Partly cloudy,0.0,76,14,1028,21,15,59,10,51,14,58,8,14,14,58
+2019-02-12,16,61,12,53,07:24 AM,06:08 PM,11:33 AM,12:21 AM,First Quarter,48
+2019-02-12,24,16,61,9,15,104,ESE,119,http://cdn.worldweatheronline.net/images/wsymbols01_png_64/wsymbol_0003_white_cloud.png,Cloudy,0.0,73,13,1027,11,14,57,9,48,13,55,15,24,13,55
+2019-02-13,16,62,13,55,07:23 AM,06:09 PM,12:09 PM,01:23 AM,Waxing Gibbous,55
+2019-02-13,24,16,62,10,16,89,E,116,http://cdn.worldweatheronline.net/images/wsymbols01_png_64/wsymbol_0002_sunny_intervals.png,Partly cloudy,0.0,77,13,1026,0,14,58,10,51,13,56,15,24,13,56
+2019-02-14,17,62,14,57,07:22 AM,06:10 PM,12:52 PM,02:26 AM,Waxing Gibbous,62
+2019-02-14,24,17,62,17,28,121,ESE,116,http://cdn.worldweatheronline.net/images/wsymbols01_png_64/wsymbol_0002_sunny_intervals.png,Partly cloudy,0.0,80,14,1025,3,15,59,11,53,14,57,26,42,14,57
+2019-02-15,16,61,13,55,07:21 AM,06:11 PM,01:43 PM,03:31 AM,Waxing Gibbous,69
+2019-02-15,24,16,61,10,17,90,E,122,http://cdn.worldweatheronline.net/images/wsymbols01_png_64/wsymbol_0004_black_low_cloud.png,Overcast,0.0,74,13,1023,49,14,58,10,50,14,56,16,26,14,56
+2019-02-16,16,62,13,55,07:20 AM,06:12 PM,02:42 PM,04:34 AM,Full Moon,98
+2019-02-16,24,16,62,10,17,87,E,122,http://cdn.worldweatheronline.net/images/wsymbols01_png_64/wsymbol_0004_black_low_cloud.png,Overcast,0.0,70,15,1021,43,14,58,9,48,14,56,16,26,14,56
+2019-02-17,15,60,13,55,07:19 AM,06:13 PM,03:48 PM,05:34 AM,Full Moon,98
+2019-02-17,24,15,60,14,22,115,ESE,353,http://cdn.worldweatheronline.net/images/wsymbols01_png_64/wsymbol_0009_light_rain_showers.png,Light rain shower,0.6,81,14,1020,62,14,57,11,52,12,54,21,33,12,54
+2019-02-18,14,57,13,55,07:18 AM,06:14 PM,05:00 PM,06:29 AM,Full Moon,98
+2019-02-18,24,14,57,10,16,102,ESE,353,http://cdn.worldweatheronline.net/images/wsymbols01_png_64/wsymbol_0009_light_rain_showers.png,Light rain shower,6.2,85,10,1016,75,14,57,11,52,12,54,15,24,12,54
+2019-02-19,16,61,13,55,07:16 AM,06:15 PM,06:14 PM,07:17 AM,Full Moon,98
+2019-02-19,24,16,61,7,11,140,SE,116,http://cdn.worldweatheronline.net/images/wsymbols01_png_64/wsymbol_0002_sunny_intervals.png,Partly cloudy,4.3,79,11,1019,34,14,57,10,51,13,56,10,16,13,56
+2019-02-20,16,60,12,53,07:15 AM,06:16 PM,07:28 PM,08:00 AM,Waning Gibbous,97
+2019-02-20,24,16,60,9,14,98,E,116,http://cdn.worldweatheronline.net/images/wsymbols01_png_64/wsymbol_0002_sunny_intervals.png,Partly cloudy,0.0,78,10,1021,18,14,57,10,50,13,55,13,21,13,55
+2019-02-21,16,61,14,56,07:14 AM,06:17 PM,08:40 PM,08:38 AM,Waning Gibbous,90
+2019-02-21,24,16,61,16,26,120,ESE,116,http://cdn.worldweatheronline.net/images/wsymbols01_png_64/wsymbol_0002_sunny_intervals.png,Partly cloudy,0.0,79,10,1024,15,15,58,11,52,13,56,24,38,13,56
+2019-02-22,16,62,14,56,07:13 AM,06:18 PM,09:50 PM,09:14 AM,Waning Gibbous,83
+2019-02-22,24,16,62,13,21,110,ESE,122,http://cdn.worldweatheronline.net/images/wsymbols01_png_64/wsymbol_0004_black_low_cloud.png,Overcast,0.0,80,10,1027,32,15,58,11,52,14,56,20,32,14,56
+2019-02-23,19,65,13,55,07:11 AM,06:19 PM,10:57 PM,09:48 AM,Waning Gibbous,76
+2019-02-23,24,19,65,7,10,96,E,122,http://cdn.worldweatheronline.net/images/wsymbols01_png_64/wsymbol_0004_black_low_cloud.png,Overcast,0.0,68,19,1028,23,15,60,9,49,15,59,12,20,15,59
+2019-02-24,18,65,13,56,07:10 AM,06:20 PM,No moonrise,10:23 AM,Last Quarter,69
+2019-02-24,24,18,65,7,12,78,ENE,113,http://cdn.worldweatheronline.net/images/wsymbols01_png_64/wsymbol_0001_sunny.png,Sunny,0.0,63,20,1027,15,15,60,8,47,15,59,14,22,15,59
+2019-02-25,18,64,13,55,07:09 AM,06:21 PM,12:02 AM,10:59 AM,Last Quarter,62
+2019-02-25,24,18,64,8,13,83,E,113,http://cdn.worldweatheronline.net/images/wsymbols01_png_64/wsymbol_0001_sunny.png,Sunny,0.0,66,20,1028,0,15,59,8,47,14,57,14,23,14,57

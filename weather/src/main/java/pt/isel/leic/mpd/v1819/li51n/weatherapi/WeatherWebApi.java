@@ -13,7 +13,7 @@ import java.util.List;
 
 public class WeatherWebApi {
     // Weather API documentation: https://www.worldweatheronline.com/developer/api/docs/historical-weather-api.aspx
-    final String HOST = "http://weatherapi.worldweatheronline.com/premium/v1/";
+    final String HOST = "http://api.worldweatheronline.com/premium/v1/";
     final String PATH_PAST_WEATHER = "past-weather.ashx?q=%s,%s&date=%s&enddate=%s&tp=24&format=csv&key=%s";
     final String PATH_SEARCH = "search.ashx?query=%s&format=tab&key=%s";
     final String WEATHER_KEY = "04c0dd0f6827411d8ee153351192202";
@@ -33,25 +33,16 @@ public class WeatherWebApi {
      * @param to End date
      * @return List of WeatherInfo objects with weather information.
      */
-    public List<WeatherInfo> pastWeather(double lat, double log, LocalDate from, LocalDate to) {
+    public List<WeatherInfo> pastWeather(double lat, double log, LocalDate from, LocalDate to) throws IOException {
         final String url = String.format(HOST + PATH_PAST_WEATHER, lat, log, from, to, WEATHER_KEY);
 
-        request.getLines(url);
+        final List<String> lines = request.getLines(url);
+        List<WeatherInfo> weatherInfos = new ArrayList<>();
 
-
-
-        try {
-            final BufferedReader reader = new BufferedReader(new InputStreamReader(new URL(url).openStream()));
-            String line;
-            while (reader.readLine().startsWith("#"));
-
-            while ((line = reader.readLine()) != null) {
-                weatherInfos.add(WeatherInfo.valueOf(line)); // Read daily information
-                reader.readLine(); // Skip Hourly Information
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+        for (int i = skipComments(lines) + 1; i < lines.size(); i+= 2) {
+            weatherInfos.add(WeatherInfo.valueOf(lines.get(i))); // Read daily information
         }
+
         return weatherInfos;
     }
 
@@ -61,24 +52,26 @@ public class WeatherWebApi {
      * @param query Name of the city you are looking for.
      * @return List of LocationInfo objects with location information.
      */
-    public List<LocationInfo> search(String query) {
+    public List<LocationInfo> search(String query) throws IOException {
         if(query == null || query.isEmpty()) {
             throw new IllegalArgumentException("query cannot be null or empty");
         }
         final String url = String.format(HOST + PATH_SEARCH, query, WEATHER_KEY);
 
+        final List<String> lines = request.getLines(url);
+
         List<LocationInfo> locations = new ArrayList<>();
-        try {
-            final BufferedReader reader = new BufferedReader(new InputStreamReader(new URL(url).openStream()));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                if(!line.startsWith("#")) {
-                    locations.add(LocationInfo.valueOf(line));
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+
+        String line;
+        for (int i = skipComments(lines); i < lines.size(); ++i) {
+            locations.add(LocationInfo.valueOf(lines.get(i)));
         }
         return locations;
+    }
+
+    private int skipComments(List<String> lines) {
+        int i = 0;
+        while (lines.get(i++).startsWith("#"));
+        return i;
     }
 }
