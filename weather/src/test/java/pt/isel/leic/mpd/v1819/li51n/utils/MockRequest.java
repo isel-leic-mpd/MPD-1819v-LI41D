@@ -42,7 +42,7 @@ public class MockRequest extends BaseRequest {
                 .replace(',', '-')
                 .substring(0,68);
 
-        return new FileInputStream(path);
+        return ClassLoader.getSystemResource(path).openStream();
 
     }
 }
