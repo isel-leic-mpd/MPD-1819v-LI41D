@@ -21,6 +21,18 @@ public class WeatherInfo {
         return new WeatherInfo(date, max, min);
     }
 
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public int getTempMaxC() {
+        return tempMaxC;
+    }
+
+    public int getTempMinC() {
+        return tempMinC;
+    }
+
     @Override
     public String toString() {
         return "WeatherInfo{" +
