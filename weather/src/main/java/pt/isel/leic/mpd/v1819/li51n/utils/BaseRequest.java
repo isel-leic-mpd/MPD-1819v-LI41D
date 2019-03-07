@@ -21,5 +21,4 @@ abstract public class BaseRequest implements Request {
     }
 
     protected abstract InputStream openStream(String url) throws IOException;
-
 }

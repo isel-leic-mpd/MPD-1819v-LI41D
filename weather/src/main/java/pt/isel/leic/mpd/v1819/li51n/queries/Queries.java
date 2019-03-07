@@ -12,20 +12,17 @@ import java.util.List;
 public class Queries {
 
 
-    private static WeatherWebApi weatherWebApi = new WeatherWebApi(new HttpRequest());
 
+    public static <T> List<T> filter(List<T> src, Filter<T> filter) throws IOException {
 
-    public static List<WeatherInfo> filter(double lat, double log, LocalDate from, LocalDate to, Filter<WeatherInfo> filter) throws IOException {
-        final List<WeatherInfo> weatherInfos = weatherWebApi.pastWeather(lat, log, from, to);
+        List<T> filteredSrc = new ArrayList<>();
 
-        List<WeatherInfo> filteredWeatherInfo = new ArrayList<>();
-
-        for (WeatherInfo weatherInfo : weatherInfos) {
-            if(filter.test(weatherInfo)) {
-                filteredWeatherInfo.add(weatherInfo);
+        for (T t : src) {
+            if(filter.test(t)) {
+                filteredSrc.add(t);
             }
         }
 
-        return filteredWeatherInfo;
+        return filteredSrc;
     }
 }

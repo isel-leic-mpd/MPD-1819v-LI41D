@@ -1,17 +1,20 @@
-package pt.isel.leic.mpd.v1819.li51n.queries;
+package pt.isel.leic.mpd.v1819.li51n.queries.weather;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
+import pt.isel.leic.mpd.v1819.li51n.queries.Filter;
+import pt.isel.leic.mpd.v1819.li51n.utils.MockRequest;
 import pt.isel.leic.mpd.v1819.li51n.weatherapi.WeatherInfo;
+import pt.isel.leic.mpd.v1819.li51n.weatherapi.WeatherWebApi;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.List;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 
-public class QueriesTest {
+public class WeatherQueriesTest {
 
 
     private double lat = 37.017;
@@ -19,6 +22,10 @@ public class QueriesTest {
     private LocalDate from = LocalDate.parse("2019-02-01");
     private LocalDate to = LocalDate.parse("2019-02-28");
 
+    @BeforeClass
+    public static void beforeClass() {
+        WeatherQueries.setWeatherWebApi(new WeatherWebApi(new MockRequest()));
+    }
 
     @Test
     public void getWeatherInfoWithMaxTemperaturesAbove() throws IOException {
@@ -59,7 +66,7 @@ public class QueriesTest {
     }
 
     private void testFilteredWeatherInfo(Filter<WeatherInfo> filter) throws IOException {
-        final List<WeatherInfo> weatherInfos = Queries.filter(lat, log, from, to, filter);
+        final Iterable<WeatherInfo> weatherInfos = WeatherQueries.filter(lat, log, from, to, filter);
         assertNotNull(weatherInfos);
         for (WeatherInfo weatherInfo : weatherInfos) {
             assertTrue(filter.test(weatherInfo));
