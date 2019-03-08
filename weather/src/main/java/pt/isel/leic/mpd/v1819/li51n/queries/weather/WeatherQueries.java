@@ -21,8 +21,8 @@ public class WeatherQueries {
     }
 
 
-    public static List<WeatherInfo> filter(double lat, double log, LocalDate from, LocalDate to, Filter<WeatherInfo> filter) throws IOException {
-        final List<WeatherInfo> weatherInfos = weatherWebApi.pastWeather(lat, log, from, to);
+    public static Iterable<WeatherInfo> filter(double lat, double log, LocalDate from, LocalDate to, Filter<WeatherInfo> filter) throws IOException {
+        final Iterable<WeatherInfo> weatherInfos = weatherWebApi.pastWeather(lat, log, from, to);
         return Queries.filter(weatherInfos, filter);
     }
 }

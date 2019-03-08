@@ -44,8 +44,6 @@ public class WeatherQueriesTest {
         int maxTemp = 15;
 
         testFilteredWeatherInfo(weatherInfo -> weatherInfo.getTempMaxC() >= minTemp && weatherInfo.getTempMaxC() <= maxTemp);
-
-
     }
 
     @Test

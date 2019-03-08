@@ -13,6 +13,6 @@ public interface Request {
      * @param url the url to get its content lines
      * @return the List of the url content lines
      */
-    List<String> getLines(String url) throws IOException;
+    Iterable<String> getLines(String url) throws IOException;
 
 }

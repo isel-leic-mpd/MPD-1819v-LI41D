@@ -16,7 +16,7 @@ public class App {
         /*
          * Get past weather at Lisbon between 2019-02-01 and 2019-02-10
          */
-        List<WeatherInfo> infos = webApi
+        Iterable<WeatherInfo> infos = webApi
             .pastWeather(38.717,-9.133, parse("2019-01-01"), parse("2019-01-10"));
         for (WeatherInfo info : infos)
             System.out.println(info);

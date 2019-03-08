@@ -2,8 +2,8 @@ package pt.isel.leic.mpd.v1819.li51n.weatherapi;
 
 import org.junit.Assert;
 import org.junit.Test;
-import pt.isel.leic.mpd.v1819.li51n.utils.HttpRequest;
 import pt.isel.leic.mpd.v1819.li51n.utils.MockRequest;
+
 
 import java.io.IOException;
 import java.util.List;
@@ -18,10 +18,10 @@ public class WeatherWebApiTest {
         final String locationStr = "Oporto";
 
         // Act
-        final List<LocationInfo> locations = weatherWebApi.search(locationStr);
+        final Iterable<LocationInfo> locations = weatherWebApi.search(locationStr);
 
         // Assert
-        Assert.assertTrue(locations.size() > 0);
+        Assert.assertTrue(locations.iterator().hasNext());
         assertEachLocationIsValid(locations);
     }
 
@@ -32,7 +32,7 @@ public class WeatherWebApiTest {
         // Arrange
 
         // Act
-        final List<LocationInfo> locations = weatherWebApi.search("");
+        final Iterable<LocationInfo> locations = weatherWebApi.search("");
 
         // Assert
     }
@@ -42,7 +42,7 @@ public class WeatherWebApiTest {
         // Arrange
 
         // Act
-        final List<LocationInfo> locations = weatherWebApi.search(null);
+        final Iterable<LocationInfo> locations = weatherWebApi.search(null);
 
         // Assert
     }
@@ -56,7 +56,7 @@ public class WeatherWebApiTest {
         Assert.assertFalse(str.isEmpty());
     }
 
-    private void assertEachLocationIsValid(List<LocationInfo> locations) {
+    private void assertEachLocationIsValid(Iterable<LocationInfo> locations) {
         for (LocationInfo location : locations) {
             Assert.assertNotNull(location);
             assertNotNullNorEmpty(location.getName());
