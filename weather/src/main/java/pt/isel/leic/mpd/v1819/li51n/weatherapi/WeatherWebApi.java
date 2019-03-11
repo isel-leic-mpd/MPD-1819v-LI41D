@@ -1,5 +1,6 @@
 package pt.isel.leic.mpd.v1819.li51n.weatherapi;
 
+import pt.isel.leic.mpd.v1819.li51n.queries.Queries;
 import pt.isel.leic.mpd.v1819.li51n.utils.Request;
 
 import java.io.IOException;
@@ -66,16 +67,6 @@ public class WeatherWebApi {
     }
 
     private Iterable<String> skipComments(Iterable<String> lines) {
-        Iterator<String> iter = lines.iterator();
-        String line = null;
-
-        List<String> linesWithoutComment = new ArrayList<>();
-
-        while(iter.hasNext()) {
-            if(!(line=iter.next()).startsWith("#")) {
-                linesWithoutComment.add(line);
-            }
-        }
-        return linesWithoutComment;
+        return Queries.filter(lines, line -> !line.startsWith("#"));
     }
 }

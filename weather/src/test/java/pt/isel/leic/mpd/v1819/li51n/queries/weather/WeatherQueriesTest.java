@@ -9,6 +9,7 @@ import pt.isel.leic.mpd.v1819.li51n.weatherapi.WeatherWebApi;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.function.Predicate;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -63,7 +64,7 @@ public class WeatherQueriesTest {
         testFilteredWeatherInfo(weatherInfo -> weatherInfo.getTempMinC() >= minTemp && weatherInfo.getTempMinC() <= maxTemp);
     }
 
-    private void testFilteredWeatherInfo(Filter<WeatherInfo> filter) throws IOException {
+    private void testFilteredWeatherInfo(Predicate<WeatherInfo> filter) throws IOException {
         final Iterable<WeatherInfo> weatherInfos = WeatherQueries.filter(lat, log, from, to, filter);
         assertNotNull(weatherInfos);
         for (WeatherInfo weatherInfo : weatherInfos) {
