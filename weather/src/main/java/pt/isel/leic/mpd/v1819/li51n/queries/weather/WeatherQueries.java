@@ -1,6 +1,6 @@
 package pt.isel.leic.mpd.v1819.li51n.queries.weather;
 
-import pt.isel.leic.mpd.v1819.li51n.queries.Queries;
+import pt.isel.leic.mpd.v1819.li51n.queries.EagerQueries;
 import pt.isel.leic.mpd.v1819.li51n.weatherapi.WeatherInfo;
 import pt.isel.leic.mpd.v1819.li51n.weatherapi.WeatherWebApi;
 
@@ -20,6 +20,6 @@ public class WeatherQueries {
 
     public static Iterable<WeatherInfo> filter(double lat, double log, LocalDate from, LocalDate to, Predicate<WeatherInfo> filter) throws IOException {
         final Iterable<WeatherInfo> weatherInfos = weatherWebApi.pastWeather(lat, log, from, to);
-        return Queries.filter(weatherInfos, filter);
+        return EagerQueries.of(weatherInfos).filter(filter);
     }
 }

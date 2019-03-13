@@ -2,7 +2,6 @@ package pt.isel.leic.mpd.v1819.li51n.queries.weather;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
-import pt.isel.leic.mpd.v1819.li51n.queries.Filter;
 import pt.isel.leic.mpd.v1819.li51n.utils.MockRequest;
 import pt.isel.leic.mpd.v1819.li51n.weatherapi.WeatherInfo;
 import pt.isel.leic.mpd.v1819.li51n.weatherapi.WeatherWebApi;
