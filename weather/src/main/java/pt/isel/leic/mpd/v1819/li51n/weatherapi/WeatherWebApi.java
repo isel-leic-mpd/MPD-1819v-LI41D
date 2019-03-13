@@ -1,6 +1,6 @@
 package pt.isel.leic.mpd.v1819.li51n.weatherapi;
 
-import pt.isel.leic.mpd.v1819.li51n.queries.EagerQueries;
+import pt.isel.leic.mpd.v1819.li51n.queries.eager.EagerQueries;
 import pt.isel.leic.mpd.v1819.li51n.utils.Request;
 
 import java.io.IOException;
@@ -14,7 +14,7 @@ public class WeatherWebApi {
     final String PATH_PAST_WEATHER = "past-weather.ashx?q=%s,%s&date=%s&enddate=%s&tp=24&format=csv&key=%s";
     final String PATH_SEARCH = "search.ashx?query=%s&format=tab&key=%s";
     final String WEATHER_KEY = "04c0dd0f6827411d8ee153351192202";
-    private Request request;
+    private final Request request;
 
     public WeatherWebApi(Request request) {
 

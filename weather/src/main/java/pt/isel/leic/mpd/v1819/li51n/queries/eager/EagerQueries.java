@@ -1,4 +1,7 @@
-package pt.isel.leic.mpd.v1819.li51n.queries;
+package pt.isel.leic.mpd.v1819.li51n.queries.eager;
+
+import pt.isel.leic.mpd.v1819.li51n.queries.BaseQueries;
+import pt.isel.leic.mpd.v1819.li51n.queries.Queries;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +14,7 @@ public class EagerQueries<T> extends BaseQueries<T> {
         super(src);
     }
 
-    public EagerQueries<T> filter(Predicate<T> filter) {
+    public Queries<T> filter(Predicate<T> filter) {
         List<T> filteredSrc = new ArrayList<>();
 
         for (T t : this) {
@@ -24,7 +27,7 @@ public class EagerQueries<T> extends BaseQueries<T> {
     }
 
 
-    public <R> EagerQueries<R> map(Function<T, R> map) {
+    public <R> Queries<R> map(Function<T, R> map) {
         List<R> mappedSrc = new ArrayList<>();
 
         for (T t : this.src) {
@@ -34,9 +37,22 @@ public class EagerQueries<T> extends BaseQueries<T> {
         return new EagerQueries<>(mappedSrc);
     }
 
+    @Override
+    public Queries<T> limit(int n) {
+        List<T> filteredSrc = new ArrayList<>();
+
+        for (T t : this) {
+            if(--n >= 0) {
+                filteredSrc.add(t);
+            }
+        }
+
+        return new EagerQueries<>(filteredSrc);
+    }
+
 
     public static <T> Queries<T> of(Iterable<T> src) {
-        return new EagerQueries<T>(src);
+        return new EagerQueries<>(src);
     }
 
 }

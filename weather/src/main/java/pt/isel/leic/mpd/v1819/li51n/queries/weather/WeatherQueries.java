@@ -1,6 +1,6 @@
 package pt.isel.leic.mpd.v1819.li51n.queries.weather;
 
-import pt.isel.leic.mpd.v1819.li51n.queries.EagerQueries;
+import pt.isel.leic.mpd.v1819.li51n.queries.eager.EagerQueries;
 import pt.isel.leic.mpd.v1819.li51n.weatherapi.WeatherInfo;
 import pt.isel.leic.mpd.v1819.li51n.weatherapi.WeatherWebApi;
 

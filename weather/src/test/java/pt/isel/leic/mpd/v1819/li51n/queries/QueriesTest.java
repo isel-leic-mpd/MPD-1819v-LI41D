@@ -43,6 +43,13 @@ abstract public class QueriesTest {
     }
 
     @Test
+    public void shouldLimit() {
+        final Queries<String> filteredStrings = createQueries(strings).limit(3);
+
+        assertEquals(3, filteredStrings.count());
+    }
+
+    @Test
     public void shouldNotReturnThisOnNonTerminalMethods() {
         final Queries<Integer> queries1 = createQueries(numbers);
         final Queries<Integer> queries2 = queries1.filter(i -> i % 2 == 0);

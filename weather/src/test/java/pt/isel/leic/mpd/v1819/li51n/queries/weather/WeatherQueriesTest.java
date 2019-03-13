@@ -17,10 +17,10 @@ import static org.junit.Assert.assertTrue;
 public class WeatherQueriesTest {
 
 
-    private double lat = 37.017;
-    private double log = 7.933;
-    private LocalDate from = LocalDate.parse("2019-02-01");
-    private LocalDate to = LocalDate.parse("2019-02-28");
+    private final double lat = 37.017;
+    private final double log = 7.933;
+    private final LocalDate from = LocalDate.parse("2019-02-01");
+    private final LocalDate to = LocalDate.parse("2019-02-28");
 
     @BeforeClass
     public static void beforeClass() {

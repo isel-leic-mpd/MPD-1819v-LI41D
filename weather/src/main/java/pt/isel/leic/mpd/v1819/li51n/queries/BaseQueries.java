@@ -5,7 +5,7 @@ import java.util.NoSuchElementException;
 import java.util.function.IntFunction;
 
 abstract public class BaseQueries<T> implements Queries<T> {
-    protected Iterable<T> src;
+    protected final Iterable<T> src;
 
     public BaseQueries(Iterable<T> src) {
         this.src = src;

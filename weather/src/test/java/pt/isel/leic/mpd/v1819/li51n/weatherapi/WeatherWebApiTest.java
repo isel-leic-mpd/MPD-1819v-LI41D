@@ -4,9 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import pt.isel.leic.mpd.v1819.li51n.utils.MockRequest;
 
-
 import java.io.IOException;
-import java.util.List;
 
 public class WeatherWebApiTest {
 
