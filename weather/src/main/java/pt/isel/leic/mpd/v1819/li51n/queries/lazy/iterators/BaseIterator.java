@@ -19,8 +19,8 @@ public abstract class BaseIterator<T> implements Iterator<T> {
         return current.isPresent();
     }
 
-    protected abstract Optional<T> tryAdvance();
 
+    protected abstract Optional<T> tryAdvance();
 
     @Override
     public final T next() {
