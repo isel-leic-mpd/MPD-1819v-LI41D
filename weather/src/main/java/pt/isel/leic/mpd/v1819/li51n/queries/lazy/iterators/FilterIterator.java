@@ -2,6 +2,7 @@ package pt.isel.leic.mpd.v1819.li51n.queries.lazy.iterators;
 
 import java.util.Iterator;
 import java.util.Optional;
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 public class FilterIterator<T> extends BaseIterator<T> {
@@ -16,15 +17,15 @@ public class FilterIterator<T> extends BaseIterator<T> {
 
 
     @Override
-    protected Optional<T> tryAdvance() {
+    protected boolean tryAdvance(Consumer<T> consumer) {
         T current;
         while (src.hasNext()) {
             current = src.next();
             if(filter.test(current)) {
-                return Optional.ofNullable(current);
+                consumer.accept(current);
+                return true;
             }
         }
-        return Optional.empty();
+        return false;
     }
-
 }

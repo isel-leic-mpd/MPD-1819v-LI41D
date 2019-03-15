@@ -1,7 +1,7 @@
 package pt.isel.leic.mpd.v1819.li51n.queries.lazy.iterators;
 
 import java.util.Iterator;
-import java.util.Optional;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 public class MapIterator<T, R> extends BaseIterator<R> {
@@ -14,10 +14,11 @@ public class MapIterator<T, R> extends BaseIterator<R> {
     }
 
     @Override
-    protected Optional<R> tryAdvance() {
+    protected boolean tryAdvance(Consumer<R> consumer) {
         if(!src.hasNext()) {
-            return Optional.empty();
+            return false;
         }
-        return Optional.ofNullable(mapper.apply(src.next()));
+        consumer.accept(mapper.apply(src.next()));
+        return true;
     }
 }

@@ -1,7 +1,7 @@
 package pt.isel.leic.mpd.v1819.li51n.queries.lazy.iterators;
 
 import java.util.Iterator;
-import java.util.Optional;
+import java.util.function.Consumer;
 
 public class LimitIterator<T> extends BaseIterator<T> {
     private final Iterator<T> src;
@@ -13,12 +13,12 @@ public class LimitIterator<T> extends BaseIterator<T> {
     }
 
     @Override
-    public Optional<T> tryAdvance() {
+    protected boolean tryAdvance(Consumer<T> consumer) {
         if(n > 0 && src.hasNext()) {
             --n;
-            return Optional.ofNullable(src.next());
+            consumer.accept(src.next());
+            return true;
         }
-
-        return Optional.empty();
+        return false;
     }
 }

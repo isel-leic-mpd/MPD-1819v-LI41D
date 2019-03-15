@@ -3,6 +3,7 @@ package pt.isel.leic.mpd.v1819.li51n.queries.lazy.iterators;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.function.Consumer;
 
 public abstract class BaseIterator<T> implements Iterator<T> {
 
@@ -15,12 +16,9 @@ public abstract class BaseIterator<T> implements Iterator<T> {
             return true;
         }
 
-        current = tryAdvance();
-        return current.isPresent();
+        return tryAdvance(t -> current = Optional.ofNullable(t));
     }
 
-
-    protected abstract Optional<T> tryAdvance();
 
     @Override
     public final T next() {
@@ -32,4 +30,6 @@ public abstract class BaseIterator<T> implements Iterator<T> {
         current = Optional.empty();
         return ret;
     }
+
+    protected abstract boolean tryAdvance(Consumer<T> consumer);
 }
