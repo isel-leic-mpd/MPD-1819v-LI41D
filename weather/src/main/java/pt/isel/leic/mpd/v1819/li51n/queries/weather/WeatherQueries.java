@@ -2,7 +2,7 @@ package pt.isel.leic.mpd.v1819.li51n.queries.weather;
 
 import pt.isel.leic.mpd.v1819.li51n.queries.eager.EagerQueries;
 import pt.isel.leic.mpd.v1819.li51n.weatherapi.WeatherInfo;
-import pt.isel.leic.mpd.v1819.li51n.weatherapi.WeatherWebApi;
+import pt.isel.leic.mpd.v1819.li51n.weatherapi.WeatherWebApiCsv;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -11,9 +11,9 @@ import java.util.function.Predicate;
 public class WeatherQueries {
 
 
-    private static WeatherWebApi weatherWebApi = null;
+    private static WeatherWebApiCsv weatherWebApi = null;
 
-    public static void setWeatherWebApi(WeatherWebApi wwApi) {
+    public static void setWeatherWebApi(WeatherWebApiCsv wwApi) {
         weatherWebApi = wwApi;
     }
 

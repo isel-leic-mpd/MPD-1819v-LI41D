@@ -2,13 +2,21 @@ package pt.isel.leic.mpd.v1819.li51n.weatherapi;
 
 import org.junit.Assert;
 import org.junit.Test;
-import pt.isel.leic.mpd.v1819.li51n.utils.MockRequest;
+import pt.isel.leic.mpd.v1819.li51n.queries.Queries;
+import pt.isel.leic.mpd.v1819.li51n.queries.lazy.LazyQueries;
 
 import java.io.IOException;
+import java.time.LocalDate;
 
-public class WeatherWebApiTest {
+import static org.junit.Assert.assertEquals;
 
-    private final WeatherWebApi weatherWebApi = new WeatherWebApi(new MockRequest());
+public abstract class WeatherWebApiTest {
+    private final WeatherWebApi weatherWebApi;
+
+    public WeatherWebApiTest(WeatherWebApi weatherWebApi) {
+        this.weatherWebApi = weatherWebApi;
+    }
+
 
     @Test
     public void shouldGetLocationsForOportoSearch() throws IOException {
@@ -22,8 +30,6 @@ public class WeatherWebApiTest {
         Assert.assertTrue(locations.iterator().hasNext());
         assertEachLocationIsValid(locations);
     }
-
-
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldThrowExceptionForEmptyStringOnSearch() throws IOException {
@@ -43,6 +49,22 @@ public class WeatherWebApiTest {
         final Iterable<LocationInfo> locations = weatherWebApi.search(null);
 
         // Assert
+    }
+
+
+    @Test
+    public void shouldGetPastWeatherForOporto() throws IOException {
+        final double lat = 37.017;
+        final double log = 7.933;
+        final LocalDate from = LocalDate.parse("2019-02-01");
+        final LocalDate to = LocalDate.parse("2019-02-25");
+
+        final Queries<WeatherInfo> weatherInfos = LazyQueries.of(weatherWebApi.pastWeather(lat, log, from, to));
+
+
+        assertEquals(25, weatherInfos.count());
+
+
     }
 
     private void assertIfInRange(double value, float limit) {

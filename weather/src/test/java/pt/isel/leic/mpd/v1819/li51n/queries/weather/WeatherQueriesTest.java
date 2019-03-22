@@ -4,7 +4,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import pt.isel.leic.mpd.v1819.li51n.utils.MockRequest;
 import pt.isel.leic.mpd.v1819.li51n.weatherapi.WeatherInfo;
-import pt.isel.leic.mpd.v1819.li51n.weatherapi.WeatherWebApi;
+import pt.isel.leic.mpd.v1819.li51n.weatherapi.WeatherWebApiCsv;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -24,7 +24,7 @@ public class WeatherQueriesTest {
 
     @BeforeClass
     public static void beforeClass() {
-        WeatherQueries.setWeatherWebApi(new WeatherWebApi(new MockRequest()));
+        WeatherQueries.setWeatherWebApi(new WeatherWebApiCsv(new MockRequest()));
     }
 
     @Test
