@@ -2,7 +2,7 @@ plugins {
     id 'java'
 }
 
-group 'pt.isel.leic.mpd.v1819.li51n'
+group 'pt.isel.leic.mpd.v1819.li41d'
 version '1.0-SNAPSHOT'
 
 sourceCompatibility = 1.8
