@@ -4,8 +4,10 @@ import com.google.gson.Gson;
 import pt.isel.leic.mpd.v1819.li41d.queries.lazy.LazyQueries;
 import pt.isel.leic.mpd.v1819.li41d.utils.HttpRequest;
 import pt.isel.leic.mpd.v1819.li41d.utils.Request;
-import pt.isel.leic.mpd.v1819.li41d.weatherapi.restdto.PastWeatherDataWeatherDto;
-import pt.isel.leic.mpd.v1819.li41d.weatherapi.restdto.PastWeatherDto;
+import pt.isel.leic.mpd.v1819.li41d.weatherapi.dto.LocationInfo;
+import pt.isel.leic.mpd.v1819.li41d.weatherapi.dto.WeatherInfo;
+import pt.isel.leic.mpd.v1819.li41d.weatherapi.jsonDto.PastWeatherDataWeatherDto;
+import pt.isel.leic.mpd.v1819.li41d.weatherapi.jsonDto.PastWeatherDto;
 
 import java.io.IOException;
 import java.time.LocalDate;

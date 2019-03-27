@@ -1,4 +1,4 @@
-package pt.isel.leic.mpd.v1819.li41d.weatherapi.restdto;
+package pt.isel.leic.mpd.v1819.li41d.weatherapi.jsonDto;
 
 public class SearchDto {
     private final SearchApiDto search_api;
