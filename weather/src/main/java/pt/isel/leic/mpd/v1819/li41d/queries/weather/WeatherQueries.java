@@ -1,8 +1,8 @@
 package pt.isel.leic.mpd.v1819.li41d.queries.weather;
 
 import pt.isel.leic.mpd.v1819.li41d.queries.eager.EagerQueries;
-import pt.isel.leic.mpd.v1819.li41d.weatherapi.WeatherInfo;
 import pt.isel.leic.mpd.v1819.li41d.weatherapi.WeatherWebApiCsv;
+import pt.isel.leic.mpd.v1819.li41d.weatherapi.dto.WeatherInfo;
 
 import java.io.IOException;
 import java.time.LocalDate;

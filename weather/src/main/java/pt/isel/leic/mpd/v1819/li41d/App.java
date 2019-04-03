@@ -1,8 +1,8 @@
 package pt.isel.leic.mpd.v1819.li41d;
 
 import pt.isel.leic.mpd.v1819.li41d.utils.HttpRequest;
-import pt.isel.leic.mpd.v1819.li41d.weatherapi.WeatherInfo;
 import pt.isel.leic.mpd.v1819.li41d.weatherapi.WeatherWebApiCsv;
+import pt.isel.leic.mpd.v1819.li41d.weatherapi.dto.WeatherInfo;
 
 import java.io.IOException;
 

@@ -4,6 +4,8 @@ import org.junit.Assert;
 import org.junit.Test;
 import pt.isel.leic.mpd.v1819.li41d.queries.Queries;
 import pt.isel.leic.mpd.v1819.li41d.queries.lazy.LazyQueries;
+import pt.isel.leic.mpd.v1819.li41d.weatherapi.dto.LocationInfo;
+import pt.isel.leic.mpd.v1819.li41d.weatherapi.dto.WeatherInfo;
 
 import java.io.IOException;
 import java.time.LocalDate;

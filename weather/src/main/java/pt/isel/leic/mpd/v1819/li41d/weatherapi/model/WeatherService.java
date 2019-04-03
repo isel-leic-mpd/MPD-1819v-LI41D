@@ -8,6 +8,7 @@ import pt.isel.leic.mpd.v1819.li41d.weatherapi.dto.WeatherInfo;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.time.LocalDate;
+import java.util.Iterator;
 
 
 public class WeatherService {
@@ -25,21 +26,25 @@ public class WeatherService {
     }
 
     private Location toLocation(LocationInfo l) {
-            return new Location(
-                    l.getCountry(),
-                    l.getRegion(),
-                    l.getLatitude(),
-                    l.getLongitude(),
-                    () -> getPastWeatherFor(l));
+        return new Location(
+                l.getCountry(),
+                l.getRegion(),
+                l.getLatitude(),
+                l.getLongitude(),
+                getPastWeatherFor(l));
     }
 
     Iterable<WeatherInfo> getPastWeatherFor(LocationInfo l) {
+        return () -> pastWeatherIterator(l);
+    }
+
+    private Iterator<WeatherInfo> pastWeatherIterator(LocationInfo l) {
         try {
             return api.pastWeather(
                     l.getLatitude(),
                     l.getLongitude(),
                     LocalDate.now().minusDays(30),
-                    LocalDate.now());
+                    LocalDate.now()).iterator();
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }

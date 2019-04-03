@@ -1,6 +1,6 @@
 package pt.isel.leic.mpd.v1819.li41d.weatherapi;
 
-import pt.isel.leic.mpd.v1819.li41d.queries.eager.EagerQueries;
+import pt.isel.leic.mpd.v1819.li41d.queries.lazy.LazyQueries;
 import pt.isel.leic.mpd.v1819.li41d.utils.Request;
 import pt.isel.leic.mpd.v1819.li41d.weatherapi.dto.LocationInfo;
 import pt.isel.leic.mpd.v1819.li41d.weatherapi.dto.WeatherInfo;
@@ -33,15 +33,12 @@ public class WeatherWebApiCsv extends BaseWeatherApi {
     public Iterable<WeatherInfo> pastWeather(double lat, double log, LocalDate from, LocalDate to) throws IOException {
         final String url = getPastWeatherUrl(lat, log, from, to);
 
-        final Iterable<String> lines = skipComments(request.getLines(url));
-        List<WeatherInfo> weatherInfos = new ArrayList<>();
-
-        int i = 0;
-        for (String line : lines) {
-            if(i++%2 == 1)
-                weatherInfos.add(WeatherInfo.valueOf(line)); // Read daily information
-        }
-        return weatherInfos;
+        int[] i = {0};
+        return LazyQueries
+                .of(request.getLines(getPastWeatherUrl(lat, log, from, to)))
+                .filter(WeatherWebApiCsv::isNotComment)
+                .filter(line -> i[0]++%2 == 1)
+                .map(WeatherInfo::valueOf);
     }
 
 
@@ -58,17 +55,15 @@ public class WeatherWebApiCsv extends BaseWeatherApi {
             throw new IllegalArgumentException("query cannot be null or empty");
         }
 
-        final String url = getSearchUrl(query);
-        final Iterable<String> lines = skipComments(request.getLines(url));
-        List<LocationInfo> locations = new ArrayList<>();
-
-        for (String line : lines) {
-            locations.add(LocationInfo.valueOf(line));
-        }
-        return locations;
+        return LazyQueries
+                .of(request.getLines(getSearchUrl(query)))
+                .filter(WeatherWebApiCsv::isNotComment)
+                .map(LocationInfo::valueOf);
     }
 
-    private Iterable<String> skipComments(Iterable<String> lines) {
-        return EagerQueries.of(lines).filter(line -> !line.startsWith("#"));
+    private static boolean isNotComment(String line) {
+        return !line.startsWith("#");
     }
+
+
 }
