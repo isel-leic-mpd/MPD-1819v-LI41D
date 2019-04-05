@@ -1,7 +1,5 @@
-package pt.isel.leic.mpd.v1819.li41d.stuff;
+package pt.isel.leic.mpd.v1819.li41d.misc;
 
-
-import java.util.function.Predicate;
 
 @FunctionalInterface
 public interface MyPredicate<T> {

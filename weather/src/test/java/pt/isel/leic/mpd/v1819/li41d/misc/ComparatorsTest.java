@@ -1,4 +1,4 @@
-package pt.isel.leic.mpd.v1819.li41d.stuff;
+package pt.isel.leic.mpd.v1819.li41d.misc;
 
 import org.junit.Test;
 

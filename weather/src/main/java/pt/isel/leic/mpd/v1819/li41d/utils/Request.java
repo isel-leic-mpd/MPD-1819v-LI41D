@@ -6,6 +6,7 @@ import java.io.IOException;
  * Interface that allows its users to obtain a list of strings with each line
  * of its text content.
  */
+@FunctionalInterface
 public interface Request {
     /**
      * Gets the lines corresponding to the text content of the givem {@code url}
