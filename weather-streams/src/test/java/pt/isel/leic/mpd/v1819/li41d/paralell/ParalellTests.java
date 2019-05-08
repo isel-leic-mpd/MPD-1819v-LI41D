@@ -1,48 +1,111 @@
 package pt.isel.leic.mpd.v1819.li41d.paralell;
 
+import org.javaync.io.AsyncFiles;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import pt.isel.leic.mpd.v1819.li41d.utils.ExecutionBenchmark;
 
 import java.io.IOException;
 import java.nio.file.*;
 import java.util.List;
+import java.util.concurrent.*;
 import java.util.stream.IntStream;
+import java.util.stream.LongStream;
 import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toList;
 
 public class ParalellTests {
-    final Path basePath = Paths.get("/Users/lfalcao/Cloud Drives/OneDrive/OneDrive - Instituto Superior de Engenharia de Lisboa/ISEL/Disciplinas/2018-2019/2018-2019Ver-PI/Repositories/PI-1819v-LI51N/node.js8-the-right-way/databases/data/cache/epub");
-    private final PathMatcher matcher = FileSystems.getDefault()
+    final static int NUMBER_OF_PROCESSORS = Runtime.getRuntime().availableProcessors();
+    final static int NUMBER_OF_TASKS = NUMBER_OF_PROCESSORS;
+    final static Path basePath = Paths.get("/Users/lfalcao/Cloud Drives/OneDrive/OneDrive - Instituto Superior de Engenharia de Lisboa/ISEL/Disciplinas/2018-2019/2018-2019Ver-PI/Repositories/PI-1819v-LI51N/node.js8-the-right-way/databases/data/cache/epub");
+    static long numFiles;
+
+    private static final PathMatcher matcher = FileSystems.getDefault()
             .getPathMatcher("glob:*.rdf");
     Stream<Path> files = null;
 
+    @BeforeClass
+    public static void beforeClasss() throws Exception {
+        numFiles = getFileStream().count();
+    }
 
     @Before
     public void setUp() throws Exception {
-        files = Files.walk(basePath, 5).filter(this::fileMatched).limit(10000);
+        files = getFileStream();
 
     }
 
+
+
     @Test
     public void shouldCountAllFilesLinesWithinAGivenDirectorySequentially() throws IOException {
-        countFilesLines(files);
+        System.out.println(countFilesLinesInternal(files));
     }
 
     @Test
     public void shouldCountAllFilesLinesWithinAGivenDirectoryWithParallelStream() throws IOException {
-        countFilesLines(files.parallel());
+        System.out.println(countFilesLinesInternal(files.parallel()));
     }
 
 
+    @Test
+    public void shouldCountAllFilesLinesWithinAGivenDirectoryWithManualThreadCreation() throws IOException {
+        System.out.println(new LineCounterExecutor(files, NUMBER_OF_PROCESSORS).countFilesLines());
+    }
+
+    @Test
+    public void shouldCountAllFilesLinesWithinAGivenDirectoryAWithAnExecutorService() throws ExecutionException, InterruptedException {
+        System.out.println(executorServiceCountFileLines());
+    }
+
+    @Test
+    public void shouldCountAllFilesLinesWithinAGivenDirectoryAAsyncFileRw() throws ExecutionException, InterruptedException {
+        //AsyncFiles.readAllBytes().
+    }
+
+    private static Stream<Path> getFileStream() throws IOException {
+        return Files.walk(basePath, 5).filter(ParalellTests::fileMatched).limit(30000);
+    }
 
 
-    private void countFilesLines(Stream<Path> files) {
+    private long executorServiceCountFileLines() throws ExecutionException, InterruptedException {
+        long[] totalLines = {0L};
+        int numberOfTasks = NUMBER_OF_TASKS*2;
+
         ExecutionBenchmark.measure(() -> {
-            long totalLines = files.mapToLong(this::countLines).sum();
-            System.out.println(totalLines);
+            final ExecutorService executorService = Executors.newFixedThreadPool(NUMBER_OF_PROCESSORS);
+            long numFilesPerTask = numFiles / numberOfTasks;
+
+            List<Path> filesCache = files.collect(toList());
+
+            final Stream<Future<Long>> futureStream = IntStream.range(0, numberOfTasks).mapToObj(i ->
+                    executorService.submit(() -> countFilesLinesInternal(filesCache.stream().skip(i * numFilesPerTask).limit(numFilesPerTask)))
+            );
+
+            totalLines[0] = futureStream.mapToLong(longFuture -> {
+                try {
+                    return longFuture.get();
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }).sum();
+
         });
+
+        return totalLines[0];
+
+    }
+
+
+    private long countFilesLinesInternal(Stream<Path> files) {
+        long[] totalLines = {0L};
+        ExecutionBenchmark.measure(() -> {
+            totalLines[0] = files.mapToLong(this::countLines).sum();
+        });
+
+        return totalLines[0];
     }
 
     private long countLines(Path path) {
@@ -55,38 +118,50 @@ public class ParalellTests {
     }
 
 
-    class TaskExecutor {
+    class LineCounterExecutor {
         private final List<Path> files;
         private final int numTasks;
         private final long numFiles;
         private final long numFilesPerTask;
+        private long[] taskResults;
 
 
-        public TaskExecutor(Stream<Path> stream, int numTasks) {
+
+        public LineCounterExecutor(Stream<Path> stream, int numTasks) {
             this.numTasks = numTasks;
             this.files = stream.collect(toList());
             this.numFiles = files.size();
             this.numFilesPerTask = numFiles / numTasks;
+            taskResults = new long[numTasks];
         }
 
-        void run() {
+        long countFilesLines() {
+                ExecutionBenchmark.measure(() -> IntStream
+                        .range(0, numTasks)
+                        .mapToObj(this::countLines)
+                        .forEach(thread -> {
+                            try {
+                                thread.join();
+                            } catch (InterruptedException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }));
 
-            final Stream<Thread> threadStream = IntStream.range(0, numTasks).mapToObj(this::countLines);
+            return LongStream.of(taskResults).sum();
 
         }
 
         private Thread countLines(int i) {
-
-            return new Thread(() -> {
-                countFilesLines(files.stream().skip(i*numFilesPerTask).limit(numFilesPerTask));
-
+            Thread t = new Thread(() -> {
+                taskResults[i] = countFilesLinesInternal(files.stream().skip(i*numFilesPerTask).limit(numFilesPerTask));
             });
+            t.start();
+            return t;
         }
     }
 
-    // Compares the glob pattern against
-    // the file or directory name.
-    boolean fileMatched(Path file) {
+    // Compares the glob pattern against the file or directory name.
+    static boolean fileMatched(Path file) {
         Path name = file.getFileName();
         return name != null && matcher.matches(name);
     }

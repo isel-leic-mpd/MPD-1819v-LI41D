@@ -6,7 +6,7 @@ public class ExecutionBenchmark {
         runnable.run();
         final long end = System.currentTimeMillis();
 
-        System.out.println("Operation took " + (end-start)/1000 + "s");
+        System.out.println("Operation took " + (double)(end-start)/1000 + "s");
 
     }
 
