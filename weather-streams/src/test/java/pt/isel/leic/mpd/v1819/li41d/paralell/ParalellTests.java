@@ -35,7 +35,7 @@ public class ParalellTests {
     public static void beforeClass() throws Exception {
         files = Files.walk(basePath, 5)
                 .filter(ParalellTests::fileMatched)
-                .limit(8)
+                .limit(10000)
                 .collect(toList());
         numFiles = files.size();
     }
@@ -69,26 +69,34 @@ public class ParalellTests {
 
     @Test
     public void shouldCountAllFilesLinesWithinAGivenDirectoryAsyncFileRw() throws ExecutionException, InterruptedException {
-        System.out.println(asyncFileRwCountFilesLines());
+        final CompletableFuture<Long> completableFuture = asyncFileRwCountFilesLines();
+
+        completableFuture                           // CompletableFuture<Long>
+                .thenApply(l -> l.toString())      // CompletableFuture<String>
+                .thenApply(str -> str.length())     // ComletableFuture<Integer>
+                .thenAccept(System.out::println);
+
+
+        completableFuture                                   // CompletableFuture<Long>
+                .thenCompose(l -> anotherAsyncFunction(l));    // CompletableFuture<String>
+
 
     }
 
-    private long asyncFileRwCountFilesLines() {
-        Semaphore semaphore = new Semaphore(0);
-        long[] numLines = {0};
-        ExecutionBenchmark.measure(() -> {
-            countFilesLinesInternalAsync(filesStream, l -> {
-                numLines[0] = l;
-                semaphore.release();
-            });
-            try {
-                semaphore.acquire();
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        });
 
-        return numLines[0];
+    CompletableFuture<String> anotherAsyncFunction(long l) {
+        return null;
+    }
+
+    private CompletableFuture<Long> asyncFileRwCountFilesLines() {
+        CompletableFuture<Long> completableFuture = new CompletableFuture<>();
+
+        ExecutionBenchmark.measure(() ->
+                countFilesLinesInternalAsync(filesStream, l -> completableFuture.complete(l))
+        );
+
+        return completableFuture;
+
     }
 
 
@@ -101,15 +109,15 @@ public class ParalellTests {
             final ExecutorService executorService = Executors.newFixedThreadPool(NUMBER_OF_PROCESSORS);
             long numFilesPerTask = numFiles / NUMBER_OF_TASKS;
             long remainingFiles = numFiles % numberOfTasks;
-            
+
             Stream<Future<Long>> futureStream =
                     IntStream.range(0, numberOfTasks).
                             mapToObj(
                                     i -> executorService.submit(
                                             () -> countFilesLinesSequentially(
                                                     getSubstream(i * numFilesPerTask + (i < remainingFiles ? i : remainingFiles),
-                                                            (numFilesPerTask + (long)(i < remainingFiles ? 1 : 0)))))
-            );
+                                                            (numFilesPerTask + (long) (i < remainingFiles ? 1 : 0)))))
+                            );
 
 
             totalLines[0] = futureStream.mapToLong(longFuture -> {
@@ -146,14 +154,12 @@ public class ParalellTests {
 
     private void countFilesLinesInternalAsync(Stream<Path> files, LongConsumer consumer) {
         final AtomicLong numLines = new AtomicLong(0);
-        final AtomicLong countFiles = new AtomicLong(0);
+        final AtomicLong countFiles = new AtomicLong(numFiles);
         files.forEach(p -> {
-            final long processingFiles = countFiles.incrementAndGet();
-            System.out.println("processing " + processingFiles);
             countLinesAsync(p, l -> {
                 numLines.addAndGet(l);
                 final long toProcess = countFiles.decrementAndGet();
-                System.out.println("toProcess " + toProcess);
+                //System.out.println("toProcess " + toProcess);
                 if (toProcess == 0) {
                     consumer.accept(numLines.longValue());
                 }
