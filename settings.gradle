@@ -4,5 +4,6 @@
 include 'weather'
 include 'weather-streams'
 include 'weather-async'
+include 'weather-reactive'
 
 rootProject.name = 'MPD-LI51D'
