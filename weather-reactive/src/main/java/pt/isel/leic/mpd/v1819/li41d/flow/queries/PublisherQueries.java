@@ -1,22 +1,27 @@
 package pt.isel.leic.mpd.v1819.li41d.flow.queries;
 
-import pt.isel.leic.mpd.v1819.li41d.flow.Publisher;
-import pt.isel.leic.mpd.v1819.li41d.flow.Subscriber;
-
+import java.util.concurrent.Flow;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
-public class PublisherQueries<T> implements Publisher<T> {
-    public static <T> PublisherQueries of(T[] values) {
-        return null;
+public interface PublisherQueries<T> extends Flow.Publisher<T> {
+
+
+    static <T> PublisherQueries<T> of(T[] values) {
+        return sub -> sub.onSubscribe(new SubscriptionFromArray<>(values, sub));
     }
 
-    @Override
-    public void subscribe(Subscriber<T> subscriber) {
-        return;
+
+
+    default <R> PublisherQueries<R> map(Function<T, R> mapper) {
+        return sub -> this.subscribe(new SubscriberMapper(sub, mapper));
     }
 
+    default PublisherQueries<T> filter(Predicate<T> predicate) {
+        return sub -> this.subscribe(new SubscriberFilter(sub, predicate));
+    }
 
-    public <R> PublisherQueries<R> map(Function<T, R> mapper) {
-        return null;
+    default PublisherQueries<T> limit(int n) {
+        return sub -> this.subscribe(new SubscriberLimit(sub, n));
     }
 }
